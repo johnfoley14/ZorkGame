@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1295</width>
+    <height>846</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>440</y>
+          <y>590</y>
           <width>51</width>
           <height>31</height>
          </rect>
@@ -41,7 +41,7 @@
         <property name="geometry">
          <rect>
           <x>60</x>
-          <y>480</y>
+          <y>630</y>
           <width>51</width>
           <height>31</height>
          </rect>
@@ -54,7 +54,7 @@
         <property name="geometry">
          <rect>
           <x>60</x>
-          <y>400</y>
+          <y>550</y>
           <width>51</width>
           <height>31</height>
          </rect>
@@ -67,7 +67,7 @@
         <property name="geometry">
          <rect>
           <x>110</x>
-          <y>440</y>
+          <y>590</y>
           <width>51</width>
           <height>31</height>
          </rect>
@@ -79,8 +79,8 @@
        <widget class="QPushButton" name="upButton">
         <property name="geometry">
          <rect>
-          <x>180</x>
-          <y>400</y>
+          <x>170</x>
+          <y>550</y>
           <width>80</width>
           <height>41</height>
          </rect>
@@ -92,8 +92,8 @@
        <widget class="QPushButton" name="downButton">
         <property name="geometry">
          <rect>
-          <x>180</x>
-          <y>470</y>
+          <x>170</x>
+          <y>620</y>
           <width>80</width>
           <height>41</height>
          </rect>
@@ -105,13 +105,54 @@
        <widget class="SharedTextBrowser" name="textBrowser_2">
         <property name="geometry">
          <rect>
-          <x>480</x>
+          <x>770</x>
           <y>0</y>
-          <width>311</width>
-          <height>241</height>
+          <width>471</width>
+          <height>341</height>
          </rect>
         </property>
        </widget>
+       <widget class="QPushButton" name="mapButton">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>600</y>
+          <width>80</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Show Map</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="mapLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>1251</width>
+          <height>531</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <zorder>westButton</zorder>
+       <zorder>southButton</zorder>
+       <zorder>eastButton</zorder>
+       <zorder>upButton</zorder>
+       <zorder>downButton</zorder>
+       <zorder>textBrowser_2</zorder>
+       <zorder>mapButton</zorder>
+       <zorder>mapLabel</zorder>
+       <zorder>northButton</zorder>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -145,22 +186,53 @@
          <rect>
           <x>10</x>
           <y>40</y>
-          <width>781</width>
-          <height>491</height>
+          <width>1211</width>
+          <height>551</height>
          </rect>
         </property>
        </widget>
        <widget class="QPushButton" name="pushButton_2">
         <property name="geometry">
          <rect>
-          <x>530</x>
-          <y>100</y>
+          <x>520</x>
+          <y>10</y>
           <width>80</width>
           <height>18</height>
          </rect>
         </property>
         <property name="text">
          <string>clear</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="mapLabel2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>60</y>
+          <width>1211</width>
+          <height>641</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Map</string>
+       </attribute>
+       <widget class="QLabel" name="mapLabel3">
+        <property name="geometry">
+         <rect>
+          <x>6</x>
+          <y>1</y>
+          <width>1211</width>
+          <height>691</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </widget>
@@ -173,7 +245,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1295</width>
      <height>17</height>
     </rect>
    </property>

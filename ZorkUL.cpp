@@ -18,70 +18,59 @@ using namespace std;
 
 ZorkUL::ZorkUL() {
     createRooms();
+    createCharacter();
 }
 
 void ZorkUL::createRooms()  {
-    Room *escape, *souterrain, *finalboss, *exit, *foodstore, *kitchen, *cor1, *cor2, *cor3, *cor4, *cor5, *cor6, *cor7, *cor8, *cor9,
-         *cell, *surpriseroom, *scribesroom, *toilet, *freefood, *noentry, *start, *armoury, *tomb1, *treasury, *documents,
-         *cell2, *cell3, *cell4, *tomb2, *cor10, *mummystomb, *boss, *sphynx, *wizardsroom, *kingstomb;
-
+    Room *escape, *souterrain, *exit, *foodstore, *cell, *surpriseroom, *scribesroom, *start, *armoury,
+        *mummystomb, *boss, *sphynx, *kingstomb, *treasury, *documents, *dungeon;
+    // escape, cell, documents, start, exit, treasury, scribes room, food store, souterrain, armoury
+    // sphynx, mummystomb, surprise, boss, kings tomb
     escape = new Room("escape");
+    dungeon = new Room("dungeon");
     souterrain = new Room("souterrain");
-        souterrain->addItem(new Item("x", 1, 11));
-        souterrain->addItem(new Item("y", 2, 22));
-    finalboss = new Room("finalboss");
+    souterrain->addItem(new Item("dagger", 1, 11, false, true));
+    souterrain->addItem(new Item("y", 2, 22, false, false));
     exit = new Room("exit");
     foodstore = new Room("foodstore");
-    kitchen = new Room("kitchen");
     cell = new Room("cell");
     surpriseroom = new Room("surpriseroom");
     scribesroom = new Room("scribesroom");
-    toilet = new Room("toilet");
-    freefood = new Room("freefood");
-    noentry = new Room("noentry");
     start = new Room("start");
     armoury = new Room("armoury");
-        armoury->addItem(new Item("sword",20,20));
-    tomb1 = new Room("tomb1");
+    armoury->addItem(new Item("sword",20,20, false, true));
     treasury = new Room("treasury");
     documents = new Room("documents");
-    cell = new Room("cell");
-    cell2  = new Room("cell2");
-    cell3  = new Room("cell3");
-    cell4   = new Room("cell4");
-    tomb2   = new Room("tomb2");
-    cor10 = new Room("cor10");
     mummystomb = new Room("mummystomb");
     boss = new Room("boss");
     sphynx = new Room("sphynx");
-    wizardsroom   = new Room("wizardsroom");
     kingstomb = new Room("kingstomb");
 
-    cor1 = new Room("cor1");
-    cor2 = new Room("cor2");
-    cor3 = new Room("cor3");
-    cor4 = new Room("cor4");
-    cor5 = new Room("cor5");
-    cor6 = new Room("cor6");
-    cor7 = new Room("cor7");
-    cor8 = new Room("cor8");
-    cor9 = new Room("cor9");
-
 //             (N, E, S, W, U, D)
-    start->setExits(NULL, NULL, armoury, cell, NULL, NULL);
-    souterrain->setExits(NULL, cor5, finalboss, NULL, NULL, NULL);
+    start->setExits(NULL, NULL, scribesroom, documents, NULL, NULL);
+    souterrain->setExits(treasury, armoury, NULL, foodstore, boss, dungeon);
     escape->setExits(NULL, NULL, NULL,NULL,NULL, NULL);
-    finalboss->setExits(souterrain, cor4, exit, NULL, NULL, NULL);
-    exit->setExits(finalboss, cor3, foodstore, escape, NULL, NULL);
-    kitchen->setExits(cell, NULL, NULL, cell, NULL, NULL);
-    cor1->setExits(NULL, cell, cell, cell, NULL, NULL);
-    cor2->setExits(NULL, NULL, NULL, cell, NULL, NULL);
-    cor3->setExits(NULL, cell, NULL, NULL, NULL, NULL);
-    cor4->setExits(NULL, cell, NULL, NULL, NULL, NULL);
+    boss->setExits(NULL, surpriseroom, NULL,  mummystomb, kingstomb, souterrain);
+    exit->setExits(cell, treasury, foodstore, escape, mummystomb, NULL);
+    foodstore->setExits(exit, souterrain, NULL, NULL, NULL, NULL);
+    cell->setExits(NULL, documents, exit, NULL, NULL, NULL);
+    surpriseroom->setExits(sphynx, NULL, boss, NULL, NULL, NULL);
+    scribesroom->setExits(start, NULL, armoury, treasury, surpriseroom, NULL);
+    armoury->setExits(scribesroom, NULL, NULL, souterrain, NULL, NULL);
+    treasury->setExits(documents, scribesroom, souterrain, exit, NULL, NULL);
+    documents->setExits(NULL, start, treasury, cell, sphynx, NULL);
+    mummystomb->setExits(sphynx, NULL, boss, NULL, NULL, exit);
+    sphynx->setExits(NULL, surpriseroom, NULL, mummystomb, NULL, documents);
+    kingstomb->setExits(NULL, NULL, NULL, NULL,NULL, boss);
 
         currentRoom = start;
 }
 
+void ZorkUL::createCharacter(){
+        Character *player;
+        player = new Character("the avergae player character");
+        character = player;
+}
 /**
  *  Main play routine.  Loops until end of play.
  */
@@ -138,14 +127,13 @@ string ZorkUL::processCommand(Command command) {
 
     else if (commandWord.compare("map") == 0)
         {
-        cout << "          [cell] --- [documents] ---    [start]   --->   [sphynx] --- [surprise]  "<< endl;
-        cout << "                |                            |                          |                |            |         |"<< endl;
-        cout << "                |                            |                          |                |            |         |"<< endl;
-        cout << "[escape] ---- [exit] ----- [treasury] --- [scribes room]  ---> [mummystomb] -- [boss] ---> [kings tomb]"<< endl;
-        cout << "                |                           |                           |                |            |         |"<< endl;
-        cout << "                |                           |                           |                |            |         |"<< endl;
-        cout << "          [food store] --- [souterrain] ---- [armoury] "<< endl;
-        cout << "                |                           |                           | "<< endl;
+        return         "          [cell] --- [documents] ---    [start]   --->   [sphynx] --- [surprise]  "
+        "                |                            |                          |                |            |         |"
+        "                |                            |                          |                |            |         |"
+        "[escape] ---- [exit] ----- [treasury] --- [scribes room]  ---> [mummystomb] -- [boss] ---> [kings tomb]"
+        "                |                           |                           |                |            |         |"
+        "                |                           |                           |                |            |         |"
+               "          [food store] --- [souterrain] ---- [armoury] ";
         }//
 
     else if (commandWord.compare("go") == 0)
@@ -170,7 +158,7 @@ string ZorkUL::processCommand(Command command) {
             cout << "index number " << + location << endl;
             cout << endl;
             cout << currentRoom->longDescription() << endl*/;
-        return "you have picked up the item successfully";
+        return "you have picked up the item successfully"+character->printInventory();
         }
     }
 
@@ -220,6 +208,15 @@ string ZorkUL::goRoom(Command command) {
         return "no room in this direction";
     else {
         currentRoom = nextRoom;
+        int i = currentRoom->shortDescription().compare("boss");
+        if(i == 0){
+                character->decreaseHealth(30);
+                if(character->health<0){
+                return "dead";
+                }
+        }
+        currentRoom = nextRoom;
+
         return currentRoom->longDescription();
     }
 }

@@ -3,8 +3,12 @@
 #define MAINWINDOW_H
 #include "Parser.h"
 #include "ZorkUL.h"
-
+#include "Character.h"
+#include "ZorkUL.h"
+#include <QTimer>
 #include <QMainWindow>
+#include <Qlabel>
+#include <QPushButton>
 
 
 
@@ -28,6 +32,7 @@ public:
     void CommandController(string inputText);
     bool gameWon;
 
+
 private slots:
     void on_pushButton_clicked();
 
@@ -45,8 +50,18 @@ private slots:
 
     void on_downButton_clicked();
 
+    void on_mapButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    std::function<void()> closeWindowLambda;
+    QTimer* closeTimer;
+    int showMap = 0;
+    QPushButton *button;
+    QPixmap pixmap;
+    bool isPixmapVisible;
+    void showMapView();
+
 };
 
 #endif // MAINWINDOW_H

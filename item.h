@@ -12,10 +12,11 @@ private:
 	string longDescription;
 	int weightGrams;
 	float value;
-	bool weaponCheck;
+    bool isWeapon;
+    bool isFood;
 
 public:
-    Item (string description, int inWeight, float inValue);
+    Item (string description, int inWeight, float inValue, bool weaponCheck, bool foodCheck);
     Item (string description);
 	string getShortDescription();
     string getLongDescription();
@@ -25,6 +26,8 @@ public:
 	void setValue(float value);
 	int getWeaponCheck();
 	void setWeaponCheck(int weaponCheck);
+    bool isAFood(bool *isFood);
+    bool isAWeapon(bool *isWeapon);
 };
 
 #endif /*ITEM_H_*/

@@ -7,18 +7,21 @@
 #include "item.h"
 #include <iostream>
 #include <string>
+#include "Character.h"
 using namespace std;
 
 class ZorkUL {
 private:
 	Parser parser;
 	Room *currentRoom;
+    Character *character;
 	void createRooms();
 	void printWelcome();
 	void printHelp();
     string goRoom(Command command);
     void createItems();
     void displayItems();
+    void createCharacter();
 
 public:
 	ZorkUL();

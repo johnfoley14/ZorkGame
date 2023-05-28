@@ -1,28 +1,31 @@
-//#ifndef CHARACTER_H_
-//#define CHARACTER_H_
-//#include "ZorkUL.h"
-//#include <vector>
-//#include <string>
-//using namespace std;
-//#include <vector>
-//using std::vector;
+#ifndef CHARACTER_H_
+#define CHARACTER_H_
+
+#include "item.h"
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Character {
+private:
+    string description;
+    vector<Item> itemsInCharacter;
 
 
-//class Character {
-//private:
-//	string description;
-//    vector < string > itemsInCharacter;
-//public:
-//	void addItems(string Item);
+public:
+    Character(string description);
+    void addItems(Item* item);
+    void putItems(Item* item);
+    Item hasItem(string name);
+    int getItemIndex(Item* item);
+    void increaseHunger(int amount);
+    void decreaseHunger(int amount);
+    void decreaseHealth(int amount);
+    string shortDescription();
+    string printInventory();
+    int health;
+    int hunger;
+};
 
-
-
-
-//public:
-//	Character(string description);
-//	string shortDescription();
-//	string longDescription();
-
-//};
-
-//#endif /*CHARACTER_H_*/
+#endif /* CHARACTER_H_ */

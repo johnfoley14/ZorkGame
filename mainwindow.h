@@ -9,6 +9,8 @@
 #include <QMainWindow>
 #include <Qlabel>
 #include <QPushButton>
+#include <QDialog>
+
 
 
 
@@ -51,6 +53,8 @@ private slots:
     void on_downButton_clicked();
 
     void on_mapButton_clicked();
+
+    void on_infoButton_clicked();
 
 private:
     Ui::MainWindow *ui;

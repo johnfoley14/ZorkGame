@@ -12,7 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->textBrowser->append("Welcome to the Pyramids!!\nToday you will be on a dangerous quest to escape\n"
+                            "Make sure to eat and defend yourself against the monsters! \nBest of luck and enter info for help\n");
+    ui->textBrowser_2->append("Welcome to the Pyramids!!\nToday you will be on a dangerous quest to escape\n"
+                              "Make sure to eat and defend yourself against the monsters! \nBest of luck and enter info for help\n");
     ZorkUL temp;
+
+
 
     closeWindowLambda = [this]() {
 
@@ -25,10 +32,16 @@ MainWindow::MainWindow(QWidget *parent)
     closeTimer->setSingleShot(true);
     connect(closeTimer, &QTimer::timeout, this, closeWindowLambda);
 
+    QSize labelSizeRoom = ui->roomLabel->size();
+
+    pixmap.load("C:/Users/johnm/Downloads/Pyramid.png");
+
+    ui->roomLabel->setPixmap(pixmap.scaled(labelSizeRoom, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
     QSize labelSize3 = ui->mapLabel3->size();
     pixmap.load("C:/Users/johnm/Downloads/map.png");
     ui->mapLabel3->setPixmap(pixmap.scaled(labelSize3, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-//    connect("reference to button", &MainWindow::pressed, this, &MainWindow::onButtonPressed)
+    //    connect("reference to button", &MainWindow::pressed, this, &MainWindow::onButtonPressed)
 }
 
 MainWindow::~MainWindow()
@@ -102,13 +115,13 @@ void MainWindow::CommandController(string inputText){
     if(!gameWon){
         if(inputText.compare("map")==0){
             showMapView();
-    }
-    else{
-        Command* command = parser.getCommand();
-        // Pass dereferenced command and check for end of game.
-        string response = temp.processCommand(*command);
-        setOutputText(response);
-    }
+        }
+        else{
+            Command* command = parser.getCommand();
+            // Pass dereferenced command and check for end of game.
+            string response = temp.processCommand(*command);
+            setOutputText(response);
+        }
     }
 }
 
@@ -152,17 +165,6 @@ void MainWindow::on_downButton_clicked()
 
 void MainWindow::on_mapButton_clicked()
 {
-//    QSize labelSize = ui->mapLabel->size();
-
-//    pixmap.load("C:/Users/johnm/Downloads/map.png");
-
-//    if(showMap%2 ==0){
-//        ui->mapLabel->setPixmap(pixmap.scaled(labelSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-
-//    }else{
-//        ui->mapLabel->clear();
-//    }
-//    showMap = showMap +1;
     showMapView();
 
 }
@@ -184,5 +186,11 @@ void MainWindow::showMapView(){
     }
     showMap = showMap +1;
 
+}
+
+
+void MainWindow::on_infoButton_clicked()
+{
+    CommandController("info");
 }
 

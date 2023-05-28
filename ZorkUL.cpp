@@ -118,23 +118,12 @@ string ZorkUL::processCommand(Command command) {
     if (command.isUnknown()) {
      //   cout << "invalid input"<< endl;
 
-        return "invalid input";
+        return "invalid input\n";
     }
 
     string commandWord = command.getCommandWord();
     if (commandWord.compare("info") == 0)
-        return std::string("valid inputs are: ") + parser.showCommands();
-
-    else if (commandWord.compare("map") == 0)
-        {
-        return         "          [cell] --- [documents] ---    [start]   --->   [sphynx] --- [surprise]  "
-        "                |                            |                          |                |            |         |"
-        "                |                            |                          |                |            |         |"
-        "[escape] ---- [exit] ----- [treasury] --- [scribes room]  ---> [mummystomb] -- [boss] ---> [kings tomb]"
-        "                |                           |                           |                |            |         |"
-        "                |                           |                           |                |            |         |"
-               "          [food store] --- [souterrain] ---- [armoury] ";
-        }//
+        return std::string("valid inputs are: ") + parser.showCommands()+"\n";
 
     else if (commandWord.compare("go") == 0)
 //        string response = goRoom(command);
@@ -145,20 +134,20 @@ string ZorkUL::processCommand(Command command) {
     {
         if (!command.hasSecondWord()) {
         //cout << "incomplete input"<< endl;
-            return "incomplete input: please specify item to take";
+            return "incomplete input: please specify item to take\n";
         }
         else
          if (command.hasSecondWord()) {
         cout << "you're trying to take " + command.getSecondWord() << endl;
         int location = currentRoom->isItemInRoom(command.getSecondWord());
         if (location  < 0 )
-            return "item is not in this room";
+            return "item is not in this room\n";
         else
            /* cout << "item is in room" << endl;
             cout << "index number " << + location << endl;
             cout << endl;
             cout << currentRoom->longDescription() << endl*/;
-        return "you have picked up the item successfully"+character->printInventory();
+        return "you have picked up the item successfully"+character->printInventory()+"\n";
         }
     }
 
@@ -196,7 +185,7 @@ void ZorkUL::printHelp() {
 string ZorkUL::goRoom(Command command) {
     if (!command.hasSecondWord()) {
     //    cout << "incomplete input"<< endl;
-        return "incomplete input";
+        return "incomplete input\n";
     }
 
     string direction = command.getSecondWord();
@@ -205,19 +194,21 @@ string ZorkUL::goRoom(Command command) {
     Room* nextRoom = currentRoom->nextRoom(direction);
 
     if (nextRoom == NULL)
-        return "no room in this direction";
+        return "no room in this direction\n";
     else {
         currentRoom = nextRoom;
         int i = currentRoom->shortDescription().compare("boss");
         if(i == 0){
-                character->decreaseHealth(30);
-                if(character->health<0){
-                return "dead";
-                }
+            character->decreaseHealth(30);
+
+            if(character->health<0){
+                return "dead\n";
+            }
+            return "You have entered a room with a boss monster\nHe hits you with a sword and you lose 30 health\n";
         }
         currentRoom = nextRoom;
 
-        return currentRoom->longDescription();
+        return currentRoom->longDescription()+"\n";
     }
 }
 

@@ -3,6 +3,7 @@
 #define MAINWINDOW_H
 #include "Parser.h"
 #include "ZorkUL.h"
+#include "player.h"
 
 #include <QMainWindow>
 

@@ -11,8 +11,10 @@ SOURCES += \
         Parser.cpp \
         Room.cpp \
         ZorkUL.cpp \
+        food.cpp \
         item.cpp \
         mainwindow.cpp \
+        player.cpp \
         sharedtextbrowser.cpp
 
 HEADERS += \
@@ -22,8 +24,10 @@ HEADERS += \
     Parser.h \
     Room.h \
     ZorkUL.h \
+    food.h \
     item.h \
     mainwindow.h \
+    player.h \
     sharedtextbrowser.h
 
 FORMS += \

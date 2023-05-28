@@ -92,3 +92,17 @@ int Room::isItemInRoom(string inString)
     return -1;
 }
 
+Item* Room::returnItem(string indescription){
+    int sizeItems = (itemsInRoom.size());
+    int x = (0);
+    for (int n = sizeItems; n > 0; n--) {
+            // compare inString with short description
+            int tempFlag = indescription.compare( itemsInRoom[n].getShortDescription());
+            if (tempFlag == 1) {
+                Item *returnItem = &(itemsInRoom[n]);
+                return returnItem;
+            }
+            x++;
+    }
+}
+

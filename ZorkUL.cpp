@@ -18,68 +18,67 @@ using namespace std;
 
 ZorkUL::ZorkUL() {
     createRooms();
+    createUserCharacter();
+}
+
+void ZorkUL::createUserCharacter(){
+    Character *usersCharacter;
+    usersCharacter = new Character("This is your users character");
+    player = usersCharacter;
+
 }
 
 void ZorkUL::createRooms()  {
-    Room *escape, *souterrain, *finalboss, *exit, *foodstore, *kitchen, *cor1, *cor2, *cor3, *cor4, *cor5, *cor6, *cor7, *cor8, *cor9,
-         *cell, *surpriseroom, *scribesroom, *toilet, *freefood, *noentry, *start, *armoury, *tomb1, *treasury, *documents,
-         *cell2, *cell3, *cell4, *tomb2, *cor10, *mummystomb, *boss, *sphynx, *wizardsroom, *kingstomb;
-
+    Room *escape, *souterrain, *exit, *foodstore, *cell, *surpriseroom, *scribesroom, *start, *armoury,
+         *mummystomb, *boss, *sphynx, *kingstomb, *treasury, *documents, *dungeon;
+    // escape, cell, documents, start, exit, treasury, scribes room, food store, souterrain, armoury
+    // sphynx, mummystomb, surprise, boss, kings tomb
     escape = new Room("escape");
+    dungeon = new Room("dungeon");
     souterrain = new Room("souterrain");
-        souterrain->addItem(new Item("x", 1, 11));
-        souterrain->addItem(new Item("y", 2, 22));
-    finalboss = new Room("finalboss");
+    souterrain->addItem(new Item("dagger", 1, 11, false, true));
+    souterrain->addItem(new Item("y", 2, 22, false, false));
     exit = new Room("exit");
     foodstore = new Room("foodstore");
-    kitchen = new Room("kitchen");
     cell = new Room("cell");
     surpriseroom = new Room("surpriseroom");
     scribesroom = new Room("scribesroom");
-    toilet = new Room("toilet");
-    freefood = new Room("freefood");
-    noentry = new Room("noentry");
     start = new Room("start");
     armoury = new Room("armoury");
-        armoury->addItem(new Item("sword",20,20));
-    tomb1 = new Room("tomb1");
+    armoury->addItem(new Item("sword",20,20, false, true));
     treasury = new Room("treasury");
     documents = new Room("documents");
-    cell = new Room("cell");
-    cell2  = new Room("cell2");
-    cell3  = new Room("cell3");
-    cell4   = new Room("cell4");
-    tomb2   = new Room("tomb2");
-    cor10 = new Room("cor10");
     mummystomb = new Room("mummystomb");
     boss = new Room("boss");
     sphynx = new Room("sphynx");
-    wizardsroom   = new Room("wizardsroom");
     kingstomb = new Room("kingstomb");
+//    cout << "          [cell] --- [documents] ---    [start]   --->                      [sphynx] -  "<< endl;
+//    cout << "                |                            |                          |                |            |         |"<< endl;
+//    cout << "                |                            |                          |                |            |         |"<< endl;
+//    cout << "[escape] ---- [exit] ----- [treasury] --- [scribes room]  ---> [mummystomb] --      [surprise]---> [kings tomb]"<< endl;
+//    cout << "                |                           |                           |                |            |         |"<< endl;
+//    cout << "                |                           |                           |      [boss]          |            |         |"<< endl;
+//    cout << "          [food store] --- [souterrain] ---- [armoury] "<< endl;
+//    cout << "                |                           |                           | "<< endl;
 
-    cor1 = new Room("cor1");
-    cor2 = new Room("cor2");
-    cor3 = new Room("cor3");
-    cor4 = new Room("cor4");
-    cor5 = new Room("cor5");
-    cor6 = new Room("cor6");
-    cor7 = new Room("cor7");
-    cor8 = new Room("cor8");
-    cor9 = new Room("cor9");
+//             (N, E, S, W, U,D)
+start->setExits(NULL, NULL, scribesroom, documents, NULL, NULL);
+souterrain->setExits(treasury, armoury, NULL, foodstore, boss, dungeon);
+escape->setExits(NULL, NULL, NULL,NULL,NULL, NULL);
+boss->setExits(NULL, surpriseroom, NULL,  mummystomb, kingstomb, souterrain);
+exit->setExits(cell, treasury, foodstore, escape, mummystomb, NULL);
+foodstore->setExits(exit, souterrain, NULL, NULL, NULL, NULL);
+cell->setExits(NULL, documents, exit, NULL, NULL, NULL);
+surpriseroom->setExits(sphynx, NULL, boss, NULL, NULL, NULL);
+scribesroom->setExits(start, NULL, armoury, treasury, surpriseroom, NULL);
+armoury->setExits(scribesroom, NULL, NULL, souterrain, NULL, NULL);
+treasury->setExits(documents, scribesroom, souterrain, exit, NULL, NULL);
+documents->setExits(NULL, start, treasury, cell, sphynx, NULL);
+mummystomb->setExits(sphynx, NULL, boss, NULL, NULL, exit);
+sphynx->setExits(NULL, surpriseroom, NULL, mummystomb, NULL, documents);
+kingstomb->setExits(NULL, NULL, NULL, NULL,NULL, boss);
 
-//             (N, E, S, W, U, D)
-    start->setExits(NULL, NULL, armoury, cell, NULL, NULL);
-    souterrain->setExits(NULL, cor5, finalboss, NULL, NULL, NULL);
-    escape->setExits(NULL, NULL, NULL,NULL,NULL, NULL);
-    finalboss->setExits(souterrain, cor4, exit, NULL, NULL, NULL);
-    exit->setExits(finalboss, cor3, foodstore, escape, NULL, NULL);
-    kitchen->setExits(cell, NULL, NULL, cell, NULL, NULL);
-    cor1->setExits(NULL, cell, cell, cell, NULL, NULL);
-    cor2->setExits(NULL, NULL, NULL, cell, NULL, NULL);
-    cor3->setExits(NULL, cell, NULL, NULL, NULL, NULL);
-    cor4->setExits(NULL, cell, NULL, NULL, NULL, NULL);
-
-        currentRoom = start;
+currentRoom = start;
 }
 
 /**
@@ -127,14 +126,14 @@ void ZorkUL::printWelcome() {
  */
 string ZorkUL::processCommand(Command command) {
     if (command.isUnknown()) {
-     //   cout << "invalid input"<< endl;
+     //   cout << "invalid \n input"<< endl;
 
-        return "invalid input";
+        return "invalid input\n";
     }
 
     string commandWord = command.getCommandWord();
     if (commandWord.compare("info") == 0)
-        return std::string("valid inputs are: ") + parser.showCommands();
+        return (std::string("valid inputs are: ") + parser.showCommands()+"\n");
 
     else if (commandWord.compare("map") == 0)
         {
@@ -146,11 +145,15 @@ string ZorkUL::processCommand(Command command) {
         cout << "                |                           |                           |                |            |         |"<< endl;
         cout << "          [food store] --- [souterrain] ---- [armoury] "<< endl;
         cout << "                |                           |                           | "<< endl;
-        }//
+        }// escape, cell, documents, start, exit, treasury, scribes room, food store, souterrain, armoury
+         // sphynx, mummystomb, surprise, boss, kings tomb
 
+    else if (commandWord.compare("health")){
+        int i = 6;
+    }
     else if (commandWord.compare("go") == 0)
-//        string response = goRoom(command);
-//        if(response.compare())
+    //        string response = goRoom(command);
+    //        if(response.compare())
         return goRoom(command);
 
     else if (commandWord.compare("take") == 0)
@@ -164,13 +167,15 @@ string ZorkUL::processCommand(Command command) {
         cout << "you're trying to take " + command.getSecondWord() << endl;
         int location = currentRoom->isItemInRoom(command.getSecondWord());
         if (location  < 0 )
-            return "item is not in this room";
+            return ("you're trying to take " + command.getSecondWord()+"\nitem is not in this room");
         else
            /* cout << "item is in room" << endl;
             cout << "index number " << + location << endl;
             cout << endl;
             cout << currentRoom->longDescription() << endl*/;
-        return "you have picked up the item successfully";
+        Item *addToInventory = currentRoom->returnItem(command.getCommandWord());
+        player->addItems(addToInventory);
+        return "you have picked up the item successfully\n"+player->printInventory();
         }
     }
 
@@ -217,10 +222,10 @@ string ZorkUL::goRoom(Command command) {
     Room* nextRoom = currentRoom->nextRoom(direction);
 
     if (nextRoom == NULL)
-        return "no room in this direction";
+        return "no room in this direction \n";
     else {
         currentRoom = nextRoom;
-        return currentRoom->longDescription();
+        return (currentRoom->longDescription()+"\nHello");
     }
 }
 

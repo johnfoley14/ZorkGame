@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ZorkUL temp;
+    ui->textBrowser->append("Welcome to the Pyramids!!\nToday you will be on a dangerous quest to escape\n"
+                            "Make sure to eat and defend yourself against the monsters! \nBest of luck and enter info for help\n");
+    ui->textBrowser_2->append("Welcome to the Pyramids!!\nToday you will be on a dangerous quest to escape\n"
+                              "Make sure to eat and defend yourself against the monsters! \nBest of luck and enter info for help\n");
 //    connect("reference to button", &MainWindow::pressed, this, &MainWindow::onButtonPressed)
 }
 
@@ -26,6 +30,7 @@ int main(int argc, char *argv[]) {
     w.show();
     //    temp.play(false);
     //    return 0;
+//    player *usersplayer = new player("your avergae character");
     return a.exec();
 }
 

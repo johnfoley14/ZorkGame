@@ -7,6 +7,8 @@
 #include "item.h"
 #include <iostream>
 #include <string>
+#include "player.h"
+#include "Character.h"
 using namespace std;
 
 class ZorkUL {
@@ -19,6 +21,8 @@ private:
     string goRoom(Command command);
     void createItems();
     void displayItems();
+    void createUserCharacter();
+    Character *player;
 
 public:
 	ZorkUL();

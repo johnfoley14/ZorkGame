@@ -1,10 +1,11 @@
 #include "item.h"
 
-Item::Item (string inDescription, int inWeightGrams, float inValue/**, int weaponCheck*/) {
+Item::Item (string inDescription, int inWeightGrams, float inValue, bool isFood, bool isWeapon) {
 	description = inDescription;
     setWeight(inWeightGrams);
 	value = inValue;
-    /**weaponCheck(isWeapon);*/
+    isAFood(isFood);
+    isAWeapon(isWeapon);
 }
 
 Item::Item(string inDescription) {
@@ -17,6 +18,14 @@ void Item::setWeight(int inWeightGrams)
        cout << "weight invalid, must be 0<weight<9999" ;
     else
 	   weightGrams = inWeightGrams;
+}
+
+bool Item::isAFood(bool foodCheck){
+    return foodCheck;
+
+}
+bool Item::isAWeapon(bool weaponCheck){
+    return weaponCheck;
 }
 
 void Item::setValue(float inValue)

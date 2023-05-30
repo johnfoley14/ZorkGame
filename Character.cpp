@@ -4,7 +4,7 @@
 Character::Character(string description) {
     this->description = description;
     health = 100; // Initialize health to 100
-    hunger = 0; // Initialize hunger to 0
+    hunger = 100; // Initialize hunger to 0
 }
 
 void Character::addItems(Item* item) {
@@ -40,14 +40,21 @@ Item Character::hasItem(string name) {
     return *temp;
 }
 
+bool Character::hasThisItem(string name) {
+    for (Item i : itemsInCharacter) {
+        if (i.getShortDescription().compare(name) == 0)
+            return true;
+    }
+
+    return false;
+}
+
 void Character::increaseHunger(int amount) {
     hunger += amount;
 }
 
 void Character::decreaseHunger(int amount) {
     hunger -= amount;
-    if (hunger < 0)
-        hunger = 0;
 }
 
 void Character::decreaseHealth(int amount) {
@@ -63,7 +70,27 @@ string Character::printInventory() {
     for (Item i : itemsInCharacter) {
         returnString = returnString + (i).getShortDescription() + " ";
     }
-    return "\nInventory: " + returnString;
+    return "Inventory: " + returnString+"\n";
 }
 
+bool Character::hasWeapon() {
+    for (Item i : itemsInCharacter) {
+        if (i.isAWeapon()) {
+            return true;
+        }
+    }
+    return false;
+}
 
+bool Character::hasEmptyInventory(){
+    if(itemsInCharacter.size()==0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+string Character::getFirstItem(){
+    return itemsInCharacter[0].getShortDescription();
+}

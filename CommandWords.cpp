@@ -15,6 +15,12 @@ CommandWords::CommandWords() {
 		validCommands.push_back("map");
 		validCommands.push_back("take");
 		validCommands.push_back("put");
+        validCommands.push_back("read");
+        validCommands.push_back("inventory");
+        validCommands.push_back("room");
+        validCommands.push_back("eat");
+        validCommands.push_back("hit");
+        validCommands.push_back("turn");
 	}
 }
 

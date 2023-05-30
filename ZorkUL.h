@@ -8,13 +8,13 @@
 #include <iostream>
 #include <string>
 #include "Character.h"
+#include "monster.h"
 using namespace std;
 
 class ZorkUL {
 private:
 	Parser parser;
 	Room *currentRoom;
-    Character *character;
 	void createRooms();
 	void printWelcome();
 	void printHelp();
@@ -23,6 +23,9 @@ private:
     void displayItems();
     void createCharacter();
 
+    friend class Room;
+    friend class MainWindow;
+
 public:
 	ZorkUL();
     void play(bool newCommand);
@@ -30,6 +33,8 @@ public:
     bool isNewCommand;
     void setCommandTrue();
     string processCommand(Command command);
+    Character *character;
+    Monster *boss;
 };
 
 #endif /*ZORKUL_H_*/

@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include <QPixmap>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->textBrowser_2->append("Welcome to the Pyramids!!\nToday you will be on a dangerous quest to escape\n"
                               "Make sure to eat and defend yourself against the monsters! \nBest of luck and enter info for help\n");
     ZorkUL temp;
+
+    ui->turnButton->setVisible(false);
 
 
 
@@ -34,12 +37,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     QSize labelSizeRoom = ui->roomLabel->size();
 
-    pixmap.load("C:/Users/johnm/Downloads/Pyramid.png");
+    pixmap.load("C:/Users/johnm/Downloads/RoomImages/Pyramid.png");
 
     ui->roomLabel->setPixmap(pixmap.scaled(labelSizeRoom, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     QSize labelSize3 = ui->mapLabel3->size();
-    pixmap.load("C:/Users/johnm/Downloads/map.png");
+    pixmap.load("C:/Users/johnm/Downloads/RoomImages/map.png");
     ui->mapLabel3->setPixmap(pixmap.scaled(labelSize3, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     //    connect("reference to button", &MainWindow::pressed, this, &MainWindow::onButtonPressed)
 }
@@ -91,8 +94,15 @@ void MainWindow::setOutputText(string outputText){
         QString qstrOutputText = QString::fromStdString(outputText);
         ui->textBrowser->append(qstrOutputText);
         ui->textBrowser_2->append(qstrOutputText);
+        showWinningMessage();
         std::this_thread::sleep_for(std::chrono::seconds(5));
         closeWindowLambda();
+    }
+    else if(outputText=="Quiting game"){
+        QString qstrOutputText = QString::fromStdString(outputText);
+        ui->textBrowser->append(qstrOutputText);
+        ui->textBrowser_2->append(qstrOutputText);
+        closeTimer->start(5000);
     }
     else if(outputText=="dead"){
         QString qstrOutputText = QString::fromStdString(outputText);
@@ -110,19 +120,49 @@ void MainWindow::setOutputText(string outputText){
     // but also send a output text to the UI
 }
 
+void MainWindow::showWinningMessage()
+{
+
+    QMessageBox::information(this, "Congratulations", "You have won! Well done\nGo tell your friends of your achievement");
+}
+
+Command* command;
+
 void MainWindow::CommandController(string inputText){
+    if(inputText.compare("take key")==0){
+        setVisible();
+    }
     parser.getInput(inputText);
     if(!gameWon){
         if(inputText.compare("map")==0){
             showMapView();
         }
         else{
-            Command* command = parser.getCommand();
+            command = parser.getCommand();
+
             // Pass dereferenced command and check for end of game.
             string response = temp.processCommand(*command);
             setOutputText(response);
+            if(command->getCommandWord().compare("go")==0){
+                setRoomImage(temp.currentRoom);
+            }
         }
     }
+}
+
+void MainWindow::setRoomImage(Room* roomDescription){
+    QSize labelSizeRoom = ui->roomLabel->size();
+
+    string imagePath = roomDescription->getImagePath();
+    QString qstrOutputText = QString::fromStdString(imagePath);
+
+    QPixmap newImagePixmap(qstrOutputText);
+
+
+    newImagePixmap.load(qstrOutputText);
+
+    ui->roomLabel->setPixmap(newImagePixmap.scaled(labelSizeRoom, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
 }
 
 //Gui based controls
@@ -174,7 +214,7 @@ void MainWindow::showMapView(){
     QSize labelSize1 = ui->mapLabel->size();
     QSize labelSize2 = ui->mapLabel2->size();
 
-    pixmap.load("C:/Users/johnm/Downloads/map.png");
+    pixmap.load("C:/Users/johnm/Downloads/RoomImages/map.png");
 
     if(showMap%2 ==0){
         ui->mapLabel->setPixmap(pixmap.scaled(labelSize1, Qt::KeepAspectRatio, Qt::SmoothTransformation));
@@ -192,5 +232,60 @@ void MainWindow::showMapView(){
 void MainWindow::on_infoButton_clicked()
 {
     CommandController("info");
+}
+
+
+void MainWindow::on_InventoryButton_clicked()
+{
+    CommandController("inventory");
+}
+
+
+void MainWindow::on_hitButton_clicked()
+{
+    CommandController("hit Medusa");
+
+}
+
+
+void MainWindow::on_clearButton_clicked()
+{
+    ui->textBrowser->clear();
+    ui->textBrowser_2->clear();
+}
+
+void MainWindow::setVisible(){
+    ui->turnButton->setVisible(true);
+}
+
+void MainWindow::on_turnButton_clicked()
+{
+    CommandController("turn key");
+}
+
+
+void MainWindow::on_takeButton_clicked()
+{
+    if(temp.currentRoom->numberOfItems()==0){
+        ui->textBrowser->append("No item to take in this room\n");
+        ui->textBrowser_2->append("No item to take in this room\n");
+    }
+    else{
+    string itemString = temp.currentRoom->getFirstItem();
+    CommandController("take "+itemString);
+    }
+}
+
+
+void MainWindow::on_putButton_clicked()
+{
+    if(temp.character->hasEmptyInventory()){
+    ui->textBrowser->append("Inventory empty. Nothing to put down\n");
+    ui->textBrowser_2->append("Inventory empty. Nothing to put down\n");
+    }
+    else{
+    string itemString = temp.character->getFirstItem();
+    CommandController("put "+itemString);
+    }
 }
 

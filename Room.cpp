@@ -2,8 +2,9 @@
 #include "Command.h"
 
 
-Room::Room(string description) {
+Room::Room(string description, string image) {
 	this->description = description;
+    this->image = image;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west, Room *up, Room *down) {
@@ -46,9 +47,22 @@ Room* Room::nextRoom(string direction) {
 }
 
 void Room::addItem(Item *inItem) {
-//    cout <<endl;
-//    cout << "Just added" + inItem->getLongDescription();
+    //    cout <<endl;
+    //    cout << "Just added" + inItem->getLongDescription();
+
     itemsInRoom.push_back(*inItem);
+}
+
+void Room::removeItem(Item* inItem) {
+    // Find the item in the vector
+    auto it = std::find_if(itemsInRoom.begin(), itemsInRoom.end(), [inItem](const Item& item) {
+        return &item == inItem;
+    });
+
+    // If item found, remove it from the vector
+    if (it != itemsInRoom.end()) {
+        itemsInRoom.erase(it);
+    }
 }
 
 string Room::displayItem() {
@@ -67,28 +81,36 @@ string Room::displayItem() {
     return tempString;
     }
 
-inline int Room::numberOfItems() {
+int Room::numberOfItems() {
     return itemsInRoom.size();
 }
 
-int Room::isItemInRoom(string inString)
+Item* Room::isItemInRoom(string inString)
 {
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1) {
-        return false;
+        return nullptr;
         }
     else if (itemsInRoom.size() > 0) {
        int x = (0);
         for (int n = sizeItems; n > 0; n--) {
             // compare inString with short description
             int tempFlag = inString.compare( itemsInRoom[x].getShortDescription());
-            if (tempFlag == 0) {
-                itemsInRoom.erase(itemsInRoom.begin()+x);
-                return x;
+            if (tempFlag == 0) {/*
+                itemsInRoom.erase(itemsInRoom.begin()+x);*/
+                return &itemsInRoom[x];
             }
             x++;
             }
         }
-    return -1;
+    return nullptr;
 }
 
+string Room::getImagePath(){
+    return image;
+}
+
+string Room::getFirstItem(){
+
+   return (itemsInRoom[0].getShortDescription());
+}

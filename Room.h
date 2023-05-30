@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "item.h"
 using namespace std;
 using std::vector;
@@ -16,18 +17,23 @@ private:
 	string exitString();
     vector <Item> itemsInRoom;
 
+    friend class ZorkUL;
+
 
 public:
-    inline int numberOfItems();
-	Room(string description);
+    int numberOfItems();
+    Room(string description, string image);
     void setExits(Room *north, Room *east, Room *south, Room *west, Room *up, Room *down);
 	string shortDescription();
+    string image;
 	string longDescription();
 	Room* nextRoom(string direction);
     void addItem(Item *inItem);
     string displayItem();
-    int isItemInRoom(string inString);
-    void removeItemFromRoom(int location);
+    Item* isItemInRoom(string inString);
+    void removeItem(Item* itemRemoved);
+    string getImagePath();
+    string getFirstItem();
 };
 
 #endif

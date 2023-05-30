@@ -11,10 +11,6 @@ class Character {
 private:
     string description;
     vector<Item> itemsInCharacter;
-
-
-public:
-    Character(string description);
     void addItems(Item* item);
     void putItems(Item* item);
     Item hasItem(string name);
@@ -26,6 +22,19 @@ public:
     string printInventory();
     int health;
     int hunger;
+    bool hasThisItem(string name);
+    bool hasWeapon();
+    bool hasEmptyInventory();
+    string getFirstItem();
+
+
+    friend class ZorkUL;
+    friend class Room;
+    friend class MainWindow;
+
+
+public:
+    Character(string description);
 };
 
 #endif /* CHARACTER_H_ */

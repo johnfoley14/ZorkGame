@@ -1,5 +1,6 @@
 QT       += core gui
 
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -13,6 +14,7 @@ SOURCES += \
         ZorkUL.cpp \
         item.cpp \
         mainwindow.cpp \
+        monster.cpp \
         sharedtextbrowser.cpp
 
 HEADERS += \
@@ -24,6 +26,7 @@ HEADERS += \
     ZorkUL.h \
     item.h \
     mainwindow.h \
+    monster.h \
     sharedtextbrowser.h
 
 FORMS += \

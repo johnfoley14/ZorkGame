@@ -5,6 +5,7 @@
 #include "ZorkUL.h"
 #include "Character.h"
 #include "ZorkUL.h"
+#include "monster.h"
 #include <QTimer>
 #include <QMainWindow>
 #include <Qlabel>
@@ -56,6 +57,18 @@ private slots:
 
     void on_infoButton_clicked();
 
+    void on_InventoryButton_clicked();
+
+    void on_hitButton_clicked();
+
+    void on_clearButton_clicked();
+
+    void on_turnButton_clicked();
+
+    void on_takeButton_clicked();
+
+    void on_putButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     std::function<void()> closeWindowLambda;
@@ -63,8 +76,14 @@ private:
     int showMap = 0;
     QPushButton *button;
     QPixmap pixmap;
+    QPixmap roomPixmap;
     bool isPixmapVisible;
     void showMapView();
+    void setRoomImage(Room* setRoomImage);
+    void showWinningMessage();
+    void setVisible();
+
+    friend class Room;
 
 };
 

@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
        <number>0</number>
@@ -40,8 +40,8 @@
        <widget class="QPushButton" name="southButton">
         <property name="geometry">
          <rect>
-          <x>620</x>
-          <y>500</y>
+          <x>630</x>
+          <y>480</y>
           <width>51</width>
           <height>31</height>
          </rect>
@@ -53,8 +53,8 @@
        <widget class="QPushButton" name="northButton">
         <property name="geometry">
          <rect>
-          <x>610</x>
-          <y>10</y>
+          <x>620</x>
+          <y>0</y>
           <width>51</width>
           <height>31</height>
          </rect>
@@ -66,7 +66,7 @@
        <widget class="QPushButton" name="eastButton">
         <property name="geometry">
          <rect>
-          <x>1210</x>
+          <x>1190</x>
           <y>250</y>
           <width>51</width>
           <height>31</height>
@@ -79,8 +79,8 @@
        <widget class="QPushButton" name="upButton">
         <property name="geometry">
          <rect>
-          <x>870</x>
-          <y>570</y>
+          <x>890</x>
+          <y>630</y>
           <width>80</width>
           <height>41</height>
          </rect>
@@ -92,8 +92,8 @@
        <widget class="QPushButton" name="downButton">
         <property name="geometry">
          <rect>
-          <x>870</x>
-          <y>620</y>
+          <x>800</x>
+          <y>630</y>
           <width>80</width>
           <height>41</height>
          </rect>
@@ -108,15 +108,15 @@
           <x>980</x>
           <y>530</y>
           <width>291</width>
-          <height>181</height>
+          <height>151</height>
          </rect>
         </property>
        </widget>
        <widget class="QPushButton" name="mapButton">
         <property name="geometry">
          <rect>
-          <x>220</x>
-          <y>570</y>
+          <x>800</x>
+          <y>580</y>
           <width>81</width>
           <height>41</height>
          </rect>
@@ -130,7 +130,7 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>981</width>
+          <width>971</width>
           <height>681</height>
          </rect>
         </property>
@@ -149,8 +149,8 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>1251</width>
-          <height>531</height>
+          <width>1261</width>
+          <height>501</height>
          </rect>
         </property>
         <property name="text">
@@ -160,8 +160,8 @@
        <widget class="QPushButton" name="infoButton">
         <property name="geometry">
          <rect>
-          <x>220</x>
-          <y>620</y>
+          <x>890</x>
+          <y>580</y>
           <width>80</width>
           <height>41</height>
          </rect>
@@ -170,17 +170,87 @@
          <string>Info</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="InventoryButton">
+        <property name="geometry">
+         <rect>
+          <x>800</x>
+          <y>530</y>
+          <width>80</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Inventory</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="hitButton">
+        <property name="geometry">
+         <rect>
+          <x>890</x>
+          <y>530</y>
+          <width>80</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Hit</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="turnButton">
+        <property name="geometry">
+         <rect>
+          <x>710</x>
+          <y>530</y>
+          <width>80</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Turn Key</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="putButton">
+        <property name="geometry">
+         <rect>
+          <x>710</x>
+          <y>580</y>
+          <width>80</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Put</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="takeButton">
+        <property name="geometry">
+         <rect>
+          <x>710</x>
+          <y>630</y>
+          <width>80</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Take</string>
+        </property>
+       </widget>
        <zorder>roomLabel</zorder>
        <zorder>textBrowser_2</zorder>
        <zorder>mapLabel</zorder>
-       <zorder>downButton</zorder>
-       <zorder>eastButton</zorder>
        <zorder>mapButton</zorder>
-       <zorder>northButton</zorder>
+       <zorder>infoButton</zorder>
+       <zorder>downButton</zorder>
+       <zorder>upButton</zorder>
+       <zorder>InventoryButton</zorder>
+       <zorder>hitButton</zorder>
+       <zorder>eastButton</zorder>
        <zorder>southButton</zorder>
        <zorder>westButton</zorder>
-       <zorder>upButton</zorder>
-       <zorder>infoButton</zorder>
+       <zorder>northButton</zorder>
+       <zorder>turnButton</zorder>
+       <zorder>putButton</zorder>
+       <zorder>takeButton</zorder>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -219,7 +289,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="clearButton">
         <property name="geometry">
          <rect>
           <x>520</x>
